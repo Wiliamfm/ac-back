@@ -1,0 +1,11 @@
+/home/william/Documents/projects/azureChallenge/AzureChallenge.Domain/bin/Debug/net8.0/AzureChallenge.Domain.deps.json
+/home/william/Documents/projects/azureChallenge/AzureChallenge.Domain/bin/Debug/net8.0/AzureChallenge.Domain.dll
+/home/william/Documents/projects/azureChallenge/AzureChallenge.Domain/bin/Debug/net8.0/AzureChallenge.Domain.pdb
+/home/william/Documents/projects/azureChallenge/AzureChallenge.Domain/obj/Debug/net8.0/AzureChallenge.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/william/Documents/projects/azureChallenge/AzureChallenge.Domain/obj/Debug/net8.0/AzureChallenge.Domain.AssemblyInfoInputs.cache
+/home/william/Documents/projects/azureChallenge/AzureChallenge.Domain/obj/Debug/net8.0/AzureChallenge.Domain.AssemblyInfo.cs
+/home/william/Documents/projects/azureChallenge/AzureChallenge.Domain/obj/Debug/net8.0/AzureChallenge.Domain.csproj.CoreCompileInputs.cache
+/home/william/Documents/projects/azureChallenge/AzureChallenge.Domain/obj/Debug/net8.0/AzureChallenge.Domain.dll
+/home/william/Documents/projects/azureChallenge/AzureChallenge.Domain/obj/Debug/net8.0/refint/AzureChallenge.Domain.dll
+/home/william/Documents/projects/azureChallenge/AzureChallenge.Domain/obj/Debug/net8.0/AzureChallenge.Domain.pdb
+/home/william/Documents/projects/azureChallenge/AzureChallenge.Domain/obj/Debug/net8.0/ref/AzureChallenge.Domain.dll
