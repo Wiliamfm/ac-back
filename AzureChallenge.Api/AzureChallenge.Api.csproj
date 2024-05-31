@@ -10,4 +10,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AzureChallenge.Contracts\AzureChallenge.Contracts.csproj" />
+    <ProjectReference Include="..\AzureChallenge.Application\AzureChallenge.Application.csproj" />
+    <ProjectReference Include="..\AzureChallenge.Infrastructure\AzureChallenge.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
