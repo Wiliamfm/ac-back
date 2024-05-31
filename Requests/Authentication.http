@@ -1,0 +1,23 @@
+@Api_HostAddress = http://localhost:5246/authentication
+
+POST  {{Api_HostAddress}}/register/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "email",
+  "firstName": "firstName",
+  "lastName": "lastName",
+  "password": "password" 
+}
+
+###
+
+POST  {{Api_HostAddress}}/login/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "email",
+  "password": "password"
+}
