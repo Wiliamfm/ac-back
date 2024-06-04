@@ -1,6 +1,7 @@
 using AzureChallenge.Application.Interfaces;
 using AzureChallenge.Application.Interfaces.Persistence;
 using AzureChallenge.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace AzureChallenge.Application.Services.Authentication;
 
@@ -20,8 +21,8 @@ public class AuthenticationService(IJwtGenerator jwtGenerator, IUserRepository u
       Email = email,
       FirstName = firstName,
       LastName = lastName,
-      Password = password
     };
+    user.SetPassword(password, new PasswordHasher<User>());
     var token = _jwtGenerator.GenerateToken(user);
     var response = new AuthenticationResult(user, token);
     return response;
@@ -34,8 +35,7 @@ public class AuthenticationService(IJwtGenerator jwtGenerator, IUserRepository u
     {
       throw new ArgumentException("User does not exist.");
     }
-    //TODO: Change to hashed password verification.
-    if(user.Password != password)
+    if(user.VerifyPassword(password, new PasswordHasher<User>()))
     {
       throw new ArgumentException("Password is incorrect.");
     }
