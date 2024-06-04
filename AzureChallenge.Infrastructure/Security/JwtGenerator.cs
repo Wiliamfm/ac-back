@@ -1,7 +1,8 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using AzureChallenge.Application.Common.Interfaces;
+using AzureChallenge.Application.Interfaces;
+using AzureChallenge.Domain.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -11,7 +12,7 @@ public class JwtGenerator(IOptions<JwtSettings> jwtOptions) : IJwtGenerator
 {
   private readonly JwtSettings _jwtSettings= jwtOptions.Value;
 
-    public string GenerateToken(int userId, string email, string firstName, string lastName)
+    public string GenerateToken(User user)
   {
     var tokenHandler = new JwtSecurityTokenHandler();
     var key = Encoding.UTF8.GetBytes(_jwtSettings.Key);
@@ -19,10 +20,10 @@ public class JwtGenerator(IOptions<JwtSettings> jwtOptions) : IJwtGenerator
     {
       Subject = new ClaimsIdentity(new Claim[]
       {
-        new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-        new Claim(ClaimTypes.Email, email),
-        new Claim(ClaimTypes.Name, firstName),
-        new Claim(ClaimTypes.GivenName, lastName),
+        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+        new Claim(ClaimTypes.Email, user.Email),
+        new Claim(ClaimTypes.Name, user.FirstName),
+        new Claim(ClaimTypes.GivenName, user.LastName),
       }),
       //TODO: Add refresh token -> decrease the lifetime.
       Expires = _jwtSettings.ExpiryMinutes > 0 ? DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiryMinutes) : DateTime.UtcNow.AddHours(1),

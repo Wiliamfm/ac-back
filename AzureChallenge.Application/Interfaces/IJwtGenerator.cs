@@ -1,6 +1,8 @@
-namespace AzureChallenge.Application.Common.Interfaces;
+using AzureChallenge.Domain.Entities;
+
+namespace AzureChallenge.Application.Interfaces;
 
 public interface IJwtGenerator
 {
-  public string GenerateToken(int userId, string email, string firstName, string lastName);
+  public string GenerateToken(User user);
 }

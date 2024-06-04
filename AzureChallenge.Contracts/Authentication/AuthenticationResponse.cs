@@ -4,7 +4,7 @@ public record AuthenticationResponse
 (
   int Id,
   string Email,
-  string firstName,
-  string lastName,
+  string FirstName,
+  string LastName,
   string Token
 );

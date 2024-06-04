@@ -14,7 +14,13 @@ public class AuthenticationController(IAuthenticationService authenticationServi
   public async Task<IActionResult> Register([FromBody] RegisterRequest request)
   {
     var authResult = await _authenticationService.Register(request.Email, request.FirstName, request.LastName, request.Password);
-    var response = new AuthenticationResponse(authResult.Id, authResult.Email, authResult.FirstName, authResult.LastName, authResult.Token);
+    var response = new AuthenticationResponse(
+      authResult.User.Id,
+      authResult.User.Email,
+      authResult.User.FirstName,
+      authResult.User.LastName,
+      authResult.Token);
+
     return Ok(response);
   }
 
@@ -22,7 +28,13 @@ public class AuthenticationController(IAuthenticationService authenticationServi
   public async Task<IActionResult> Login([FromBody] LoginRequest request)
   {
     var authResult = await _authenticationService.Login(request.Email, request.Password);
-    var response = new AuthenticationResponse(authResult.Id, authResult.Email, authResult.FirstName, authResult.LastName, authResult.Token);
+    var response = new AuthenticationResponse(
+      authResult.User.Id,
+      authResult.User.Email,
+      authResult.User.FirstName,
+      authResult.User.LastName,
+      authResult.Token);
+
     return Ok(response);
   }
 }
