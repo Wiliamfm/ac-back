@@ -1,5 +1,7 @@
-using AzureChallenge.Application.Common.Interfaces;
+using AzureChallenge.Application.Interfaces;
+using AzureChallenge.Application.Interfaces.Persistence;
 using AzureChallenge.Infrastructure.Security;
+using AzureChallenge.Infrastructure.Persistence;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,6 +14,8 @@ public static class DependencyInjection
     services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
 
     services.AddSingleton<IJwtGenerator, JwtGenerator>();
+
+    services.AddScoped<IUserRepository, UserRepository>();
     return services;
   }
 }
