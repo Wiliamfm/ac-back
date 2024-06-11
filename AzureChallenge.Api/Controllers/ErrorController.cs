@@ -18,6 +18,6 @@ public class ErrorController : ControllerBase
       _ => 500
     };
 
-    return Problem(title: exception?.Message, statusCode: statusCode);
+    return Problem(title: statusCode == 500 ? "Server Error" : exception?.Message, statusCode: statusCode);
   }
 }

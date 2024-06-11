@@ -23,6 +23,7 @@ public class AuthenticationService(IJwtGenerator jwtGenerator, IUserRepository u
       LastName = lastName,
     };
     user.SetPassword(password, new PasswordHasher<User>());
+    await _userRepository.AddUserAsync(user);
     var token = _jwtGenerator.GenerateToken(user);
     var response = new AuthenticationResult(user, token);
     return response;
@@ -35,7 +36,7 @@ public class AuthenticationService(IJwtGenerator jwtGenerator, IUserRepository u
     {
       throw new ArgumentException("User does not exist.");
     }
-    if(user.VerifyPassword(password, new PasswordHasher<User>()))
+    if(!user.VerifyPassword(password, new PasswordHasher<User>()))
     {
       throw new ArgumentException("Password is incorrect.");
     }

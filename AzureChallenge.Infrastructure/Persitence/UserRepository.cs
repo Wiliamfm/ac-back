@@ -1,25 +1,22 @@
 using AzureChallenge.Application.Interfaces.Persistence;
 using AzureChallenge.Domain.Entities;
+using AzureChallenge.Infrastructure.Persitence;
+using Microsoft.EntityFrameworkCore;
 
 namespace AzureChallenge.Infrastructure.Persistence;
 
-public class UserRepository : IUserRepository
+public class UserRepository(AzureChallengeDbContext dbContext) : IUserRepository
 {
-  private static readonly List<User> _users = new();
+    private readonly AzureChallengeDbContext _dbContext = dbContext;
 
-  public Task AddUserAsync(User user)
-  {
-    _users.Add(user);
-    return Task.CompletedTask;
-  }
-
-  public Task<User?> GetUserByEmailAsync(string email)
-  {
-    Console.WriteLine(email);
-    foreach (var user in _users)
+    public async Task AddUserAsync(User user)
     {
-      Console.WriteLine(user);
+        _dbContext.Users.Add(user);
+        await _dbContext.SaveChangesAsync();
     }
-    return Task.FromResult(_users.SingleOrDefault(x => x.Email == email));
-  }
+
+    public async Task<User?> GetUserByEmailAsync(string email)
+    {
+        return await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == email);
+    }
 }

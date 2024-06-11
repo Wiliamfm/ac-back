@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Options;
+using AzureChallenge.Infrastructure.Persitence;
+using Microsoft.EntityFrameworkCore;
 
 namespace AzureChallenge.Infrastructure;
 
@@ -16,8 +18,8 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
     {
         services.AddAuth(configuration);
+        services.AddDb(configuration);
 
-        services.AddScoped<IUserRepository, UserRepository>();
         return services;
     }
 
@@ -43,6 +45,18 @@ public static class DependencyInjection
                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
               };
           });
+
+        return services;
+    }
+
+    public static IServiceCollection AddDb(this IServiceCollection services, ConfigurationManager configuration)
+    {
+
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddDbContext<AzureChallengeDbContext>(options =>
+        {
+            options.UseSqlServer(configuration.GetConnectionString("SqlServer"));
+        });
 
         return services;
     }
