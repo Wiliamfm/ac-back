@@ -9,6 +9,7 @@ public class User
   public string FirstName { get; set; } = null!;
   public string LastName { get; set; } = null!;
   public string Password { get; private set; } = null!;
+  public IEnumerable<Role> Roles { get; set; } = null!;
 
   public string SetPassword(string password, IPasswordHasher<User> passwordHasher)
   {

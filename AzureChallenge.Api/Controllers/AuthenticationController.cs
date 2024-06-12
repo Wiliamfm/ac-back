@@ -2,7 +2,7 @@ using AzureChallenge.Application.Services.Authentication;
 using AzureChallenge.Contracts.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AzureChallenge.Api.Controllers.Authentication;
+namespace AzureChallenge.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
