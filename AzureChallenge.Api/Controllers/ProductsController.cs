@@ -29,6 +29,7 @@ public class ProductsController(IProductsService productService): ControllerBase
   }
 
   [HttpPost]
+  [Authorize(Policy = "AdminOnly")]
   public async Task<IActionResult> CreateProduct([FromBody] CreateRequest request)
   {
     var product = await _productService.CreateAsync(request.Name, request.Description, request.Price, request.Stock);
@@ -36,6 +37,7 @@ public class ProductsController(IProductsService productService): ControllerBase
   }
 
   [HttpPost("{id}/stock")]
+  [Authorize(Policy = "AdminOnly, ManagerOnly")]
   public async Task<IActionResult> AddStock(int id, [FromBody] AddStockRequest request)
   {
     var product = await _productService.AddProductAsync(id, request.Quantity);
