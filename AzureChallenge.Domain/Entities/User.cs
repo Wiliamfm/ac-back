@@ -9,10 +9,11 @@ public class User
   public string FirstName { get; set; } = null!;
   public string LastName { get; set; } = null!;
   public string Password { get; private set; } = null!;
-  public IEnumerable<Role> Roles { get; set; } = null!;
+  public ICollection<Role> Roles { get; } = new List<Role>();
 
-  public string SetPassword(string password, IPasswordHasher<User> passwordHasher)
+  public string SetPassword(string password, IPasswordHasher<User> passwordHasher = null!)
   {
+    passwordHasher ??= new PasswordHasher<User>();
     Password = passwordHasher.HashPassword(this, password);
     return Password;
   }
@@ -24,6 +25,6 @@ public class User
 
   public override string ToString()
   {
-    return $"{Id}:{Email} - {FirstName} {LastName}";
+    return $"{Id}:{Email} - {FirstName} {LastName}\nRoles:\n{(Roles.Any() ? Roles.Select(x => x.Name.ToLower()).Aggregate((x, y) => $"{x}\n{y}") : "There is no roles")}";
   }
 }

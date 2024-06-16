@@ -24,6 +24,7 @@ public class JwtGenerator(IOptions<JwtSettings> jwtOptions) : IJwtGenerator
         new Claim(ClaimTypes.Email, user.Email),
         new Claim(ClaimTypes.Name, user.FirstName),
         new Claim(ClaimTypes.GivenName, user.LastName),
+        new Claim(ClaimTypes.Role, user.Roles.Any() ? user.Roles.Select(x => x.Name.ToLower()).Aggregate((x, y) => $"{x},{y}") ?? "" : ""),
       }),
       //TODO: Add refresh token -> decrease the lifetime.
       Expires = _jwtSettings.ExpiryMinutes > 0 ? DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiryMinutes) : DateTime.UtcNow.AddHours(1),

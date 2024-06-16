@@ -10,6 +10,7 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using AzureChallenge.Infrastructure.Persitence;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace AzureChallenge.Infrastructure;
 
@@ -45,6 +46,13 @@ public static class DependencyInjection
                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
               };
           });
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy("AdminOnly", policy => policy.RequireAssertion(context => context.User.HasClaim(claim => claim.Type == ClaimTypes.Role && claim.Value.Contains("admin") )));
+            options.AddPolicy("ManagerOnly", policy => policy.RequireAssertion(context => context.User.HasClaim(claim => claim.Type == ClaimTypes.Role && claim.Value.Contains("manager"))));
+            options.AddPolicy("EmployeeOnly", policy => policy.RequireAssertion(context => context.User.HasClaim(claim => claim.Type == ClaimTypes.Role && claim.Value.Contains("employee"))));
+        });
+
 
         return services;
     }
