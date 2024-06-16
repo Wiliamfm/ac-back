@@ -16,11 +16,42 @@ public sealed class AzureChallengeDbContext(DbContextOptions<AzureChallengeDbCon
         {
             options.ToTable("Users");
             options.HasKey(u => u.Id);
-            options.HasMany(u => u.Roles).WithMany().UsingEntity("User_Role");
 
-            //options.HasData([
-            //  new User { Id = 1, Email = "QaHbL@example.com", FirstName = "William", LastName = "Hernandez" }
-            //]);
+            List<User> users = [
+              new User
+              {
+                  Id = 1,
+                  Email = "admin@example.com",
+                  FirstName = "William",
+                  LastName = "Admin"
+              },
+              new User
+              {
+                  Id = 2,
+                  Email = "manager@example.com",
+                  FirstName = "William",
+                  LastName = "Manager"
+              },
+              new User
+              {
+                  Id = 3,
+                  Email = "employee@example.com",
+                  FirstName = "William",
+                  LastName = "Employee"
+              },
+            ];
+
+            users.ForEach(u => u.SetPassword("P@ssw0rd"));
+            options.HasData(users);
+
+            options.HasMany(u => u.Roles).WithMany().UsingEntity("User_Role")
+            .HasData([
+              new { UserId = 1, RolesId = 1 },
+              new { UserId = 1, RolesId = 2 },
+              new { UserId = 2, RolesId = 2 },
+              new { UserId = 3, RolesId = 3 },
+            ]);
+
         });
         modelBuilder.Entity<Role>(options =>
         {
