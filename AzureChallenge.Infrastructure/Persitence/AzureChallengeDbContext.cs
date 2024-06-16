@@ -6,6 +6,8 @@ namespace AzureChallenge.Infrastructure.Persitence;
 public sealed class AzureChallengeDbContext(DbContextOptions<AzureChallengeDbContext> options) : DbContext(options)
 {
     public DbSet<User> Users { get; set; } = null!;
+    public DbSet<Product> Products { get; set; } = null!;
+    public DbSet<Sale> Sales { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -15,6 +17,10 @@ public sealed class AzureChallengeDbContext(DbContextOptions<AzureChallengeDbCon
             options.ToTable("Users");
             options.HasKey(u => u.Id);
             options.HasMany(u => u.Roles).WithMany().UsingEntity("User_Role");
+
+            //options.HasData([
+            //  new User { Id = 1, Email = "QaHbL@example.com", FirstName = "William", LastName = "Hernandez" }
+            //]);
         });
         modelBuilder.Entity<Role>(options =>
         {

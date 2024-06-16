@@ -51,12 +51,15 @@ public static class DependencyInjection
 
     public static IServiceCollection AddDb(this IServiceCollection services, ConfigurationManager configuration)
     {
-
-        services.AddScoped<IUserRepository, UserRepository>();
         services.AddDbContext<AzureChallengeDbContext>(options =>
         {
             options.UseSqlServer(configuration.GetConnectionString("SqlServer"));
         });
+
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<ISaleRepository, SaleRepository>();
+        services.AddScoped<IReportRepository, ReportRepository>();
 
         return services;
     }
