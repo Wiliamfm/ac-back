@@ -11,6 +11,9 @@ using Microsoft.Extensions.Options;
 using AzureChallenge.Infrastructure.Persitence;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using Azure.Security.KeyVault.Secrets;
+using Azure.Core;
+using Azure.Identity;
 
 namespace AzureChallenge.Infrastructure;
 
@@ -48,7 +51,7 @@ public static class DependencyInjection
           });
         services.AddAuthorization(options =>
         {
-            options.AddPolicy("AdminOnly", policy => policy.RequireAssertion(context => context.User.HasClaim(claim => claim.Type == ClaimTypes.Role && claim.Value.Contains("admin") )));
+            options.AddPolicy("AdminOnly", policy => policy.RequireAssertion(context => context.User.HasClaim(claim => claim.Type == ClaimTypes.Role && claim.Value.Contains("admin"))));
             options.AddPolicy("ManagerOnly", policy => policy.RequireAssertion(context => context.User.HasClaim(claim => claim.Type == ClaimTypes.Role && claim.Value.Contains("manager"))));
             options.AddPolicy("EmployeeOnly", policy => policy.RequireAssertion(context => context.User.HasClaim(claim => claim.Type == ClaimTypes.Role && claim.Value.Contains("employee"))));
         });
@@ -68,6 +71,16 @@ public static class DependencyInjection
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<ISaleRepository, SaleRepository>();
         services.AddScoped<IReportRepository, ReportRepository>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddSecrets(this IServiceCollection services, ConfigurationManager configuration)
+    {
+        configuration.AddAzureKeyVault(
+            new Uri($"https://{configuration["KeyVaultUri"]}.vault.azure.net/"),
+            new DefaultAzureCredential()
+        );
 
         return services;
     }
