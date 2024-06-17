@@ -17,6 +17,6 @@ public class UserRepository(AzureChallengeDbContext dbContext) : IUserRepository
 
     public async Task<User?> GetUserByEmailAsync(string email)
     {
-        return await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == email);
+        return await _dbContext.Users.Include(x => x.Roles).FirstOrDefaultAsync(x => x.Email == email);
     }
 }

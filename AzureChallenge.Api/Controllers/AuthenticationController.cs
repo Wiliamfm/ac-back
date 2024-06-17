@@ -19,6 +19,7 @@ public class AuthenticationController(IAuthenticationService authenticationServi
       authResult.User.Email,
       authResult.User.FirstName,
       authResult.User.LastName,
+      authResult.User.Roles.Any() ? authResult.User.Roles.Select(x => x.Name.ToLower()).Aggregate((x, y) => $"{x};{y}") : "",
       authResult.Token);
 
     return Ok(response);
@@ -33,6 +34,7 @@ public class AuthenticationController(IAuthenticationService authenticationServi
       authResult.User.Email,
       authResult.User.FirstName,
       authResult.User.LastName,
+      authResult.User.Roles.Any() ? authResult.User.Roles.Select(x => x.Name.ToLower()).Aggregate((x, y) => $"{x};{y}") : "",
       authResult.Token);
 
     return Ok(response);
