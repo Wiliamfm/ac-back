@@ -78,7 +78,7 @@ public static class DependencyInjection
     public static IServiceCollection AddSecrets(this IServiceCollection services, ConfigurationManager configuration)
     {
         configuration.AddAzureKeyVault(
-            new Uri($"https://{configuration["KeyVaultUri"]}.vault.azure.net/"),
+            new Uri($"{configuration["KeyVaultUri"]}"),
             new DefaultAzureCredential()
         );
 
