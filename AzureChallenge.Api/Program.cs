@@ -1,3 +1,4 @@
+#define Managed
 using AzureChallenge.Application;
 using AzureChallenge.Infrastructure;
 
