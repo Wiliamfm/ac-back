@@ -1,6 +1,7 @@
 #define Managed
 using AzureChallenge.Application;
 using AzureChallenge.Infrastructure;
+using AzureChallenge.Infrastructure.Persitence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,5 +28,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+await app.MigrateApplicationDatabaseAsync();
 
 app.Run();
