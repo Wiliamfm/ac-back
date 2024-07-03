@@ -24,6 +24,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseExceptionHandler("/error");
+app.UseCors(config =>
+{
+    config.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+});
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
