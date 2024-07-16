@@ -16,6 +16,6 @@ POST  {{Api_HostAddress}}/login/
 Content-Type: application/json
 
 {
-  "email": "email",
-  "password": "password"
+  "email": "admin@example.com",
+  "password": "P@ssw0rd"
 }

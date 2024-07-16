@@ -1,0 +1,28 @@
+@Api_HostAddress = http://localhost:5246/products
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsInVuaXF1ZV9uYW1lIjoiV2lsbGlhbSIsImdpdmVuX25hbWUiOiJBZG1pbiIsInJvbGUiOiJhZG1pbixtYW5hZ2VyIiwibmJmIjoxNzE4NTYxODEwLCJleHAiOjE3MTg1NjU0MTAsImlhdCI6MTcxODU2MTgxMCwiaXNzIjoiUGV2YWFyIiwiYXVkIjoiUGV2YWFyIn0.WPp6ecu9BcJuJG9KNTMwx1OSryZ5e0OkxXYwRyvuHKM
+
+POST {{Api_HostAddress}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "name 2",
+  "description": "description",
+  "price": 1,
+  "stock": 2
+}
+
+###
+
+POST {{Api_HostAddress}}/3/stock
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "quantity": 10
+}
+
+###
+
+GET {{Api_HostAddress}}/3
+Authorization: Bearer {{token}}

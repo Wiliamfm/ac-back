@@ -1,0 +1,16 @@
+@Api_HostAddress = http://localhost:5246/sales
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwiZW1haWwiOiJlbWFpbCIsInVuaXF1ZV9uYW1lIjoiZmlyc3ROYW1lIiwiZ2l2ZW5fbmFtZSI6Imxhc3ROYW1lIiwibmJmIjoxNzE4MTk2MzEyLCJleHAiOjE3MTgxOTk5MTIsImlhdCI6MTcxODE5NjMxMiwiaXNzIjoiUGV2YWFyIiwiYXVkIjoiUGV2YWFyIn0.IcPq1bsUCblpMivXDyw3mAzcfknR4lbTmCqxqLxVqMc
+
+POST {{Api_HostAddress}}
+Content-Type: application/json
+Authorization: bearer {{token}}
+
+{
+  "products": {
+    "1": "1",
+    "2": "1",
+    "3": "0"
+  },
+  "vendorId": 1,
+  "clientId": "test"
+}
